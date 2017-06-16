@@ -2,36 +2,42 @@ var path = require('path')
 var utils = require('./utils')
 var webpack = require('webpack')
 var config = require('../config')
-var merge = require('webpack-merge')
+var merge = require('webpack-merge') // 一个可以合并数组和对象的插件
 var baseWebpackConfig = require('./webpack.base.conf')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+// 用于从webpack生成的bundle中提取文本到特定文件中的插件
+// 可以抽取出css，js文件将其与webpack输出的bundle分离
+var ExtractTextPlugin = require('extract-text-webpack-plugin') //如果我们想用webpack打包成一个文件，css js分离开，需要这个插件
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env
 
+// 合并基础的webpack配置
 var webpackConfig = merge(baseWebpackConfig, {
+  // 配置样式文件的处理规则，使用styleLoaders
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true
     })
   },
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  devtool: config.build.productionSourceMap ? '#source-map' : false, // 开启source-map，生产环境下推荐使用cheap-source-map或source-map，后者得到的.map文件体积比较大，但是能够完全还原以前的js代码
   output: {
-    path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    path: config.build.assetsRoot, // 编译输出目录
+    filename: utils.assetsPath('js/[name].[chunkhash].js'), // 编译输出文件名格式
+    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js') // 没有指定输出名的文件输出的文件名格式
   },
+  // 重新配置插件项
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
+    // 位于开发环境下
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    new webpack.optimize.UglifyJsPlugin({
+    new webpack.optimize.UglifyJsPlugin({ // 丑化压缩代码
       compress: {
         warnings: false
       },
@@ -39,7 +45,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     // extract css into its own file
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css')
+      filename: utils.assetsPath('css/[name].[contenthash].css') // 抽离css文件
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -51,10 +57,15 @@ var webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
+
+    // filename 生成网页的HTML名字，可以使用/来控制文件文件的目录结构，最
+    // 终生成的路径是基于webpac配置的output.path的
     new HtmlWebpackPlugin({
+      // 生成html文件的名字，路径和生产环境下的不同，要与修改后的publickPath相结合，否则开启服务器后页面空白
       filename: process.env.NODE_ENV === 'testing'
         ? 'index.html'
         : config.build.index,
+      // 源文件，路径相对于本文件所在的位置
       template: 'index.html',
       inject: true,
       minify: {

@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <router-link to="/First">Go to Foo</router-link>
+    <div>aaaa</div>
+    <router-link to="/">fanhui</router-link>
   </div>
 </template>
 

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tdf-wc.iml" filepath="$PROJECT_DIR$/.idea/tdf-wc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../music163-mobile/.idea/music163-mobile.iml" filepath="$PROJECT_DIR$/../music163-mobile/.idea/music163-mobile.iml" />
     </modules>
   </component>
 </project>
