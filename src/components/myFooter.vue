@@ -52,6 +52,7 @@
     font-size: 0.22rem;
     background-color: #555;
     color: #fff;
+    z-index: 999;
     ul{
       width: 100%;
       li{

@@ -27,15 +27,17 @@
 <style lang="less">
   @import "../less/app.less";
   .header{
-    height: 1rem;
+    height: 0.8rem;
     width: 7.5rem;
     position: fixed;
     top:0;
     left:0;
     background-color: #c20c0c;
     padding: 0.1rem 0;
+    z-index: 999;
+
     .iconfont{
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       color: #cdcdcd;
       display: block;
     }
@@ -47,7 +49,7 @@
       width: 5.5rem;
       input{
         width: 100%;
-        height: 0.8rem;
+        height: 0.6rem;
         border-radius: 1rem;
         outline: none;
         border: none;

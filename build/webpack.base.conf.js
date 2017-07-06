@@ -23,7 +23,9 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'], //自动解析确定的拓展名,使导入模块时不带拓展名
     alias: { // 创建import或require的别名，一些常用的，路径长的都可以用别名
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': resolve('src'),
+      'FAC': resolve('src/factory'),
+      'COMP': resolve('src/components')
     }
   },
   module: {
